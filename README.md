@@ -1,5 +1,32 @@
 # **API for managging notes for users and filter by category**
 
+The next project will follow the next topics/requirements to manage Users, notes, and filter by category:
+
+## 1. Requirements / Intro
+
+You need to implement a simple web application that allows you to take notes, tag, and filter them. The development is divided into two phases:
+
+- **Phase 1**: Note creation
+- **Phase 2**: Tag application and filtering
+
+### Phase 1
+
+#### User Stories
+
+- As a user, I want to be able to create, edit, and delete notes.
+- As a user, I want to archive/unarchive notes.
+- As a user, I want to list my active notes.
+- As a user, I want to list my archived notes.
+
+### Phase 2
+
+#### User Stories
+
+- As a user, I want to be able to add/remove categories to notes.
+- As a user, I want to be able to filter notes by category.
+
+# Resolution
+
 ## The project is completely done and deploy in a Railway server (backend side)
 
 - The backend side was implemented with the next topics:
