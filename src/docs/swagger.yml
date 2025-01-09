@@ -1,0 +1,338 @@
+openapi: 3.0.0
+info:
+  title: API de Notas, Usuarios y Categorías
+  version: "1.0.0"
+  description: Documentación de la API para gestionar usuarios, notas y categorías.
+servers:
+  - url: https://hirelens-challenges-production.up.railway.app:3000
+    description: Servidor local
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Users
+      responses:
+        200:
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      summary: Crear un nuevo usuario
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: Usuario creado exitosamente
+  /api/users/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Usuario no encontrado
+    put:
+      summary: Actualizar un usuario por ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: Usuario actualizado exitosamente
+    delete:
+      summary: Eliminar un usuario por ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Usuario eliminado exitosamente
+
+  /api/notes:
+    get:
+      summary: Obtener todas las notas
+      tags:
+        - Notes
+      responses:
+        200:
+          description: Lista de notas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+    post:
+      summary: Crear una nueva nota
+      tags:
+        - Notes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Note"
+      responses:
+        201:
+          description: Nota creada exitosamente
+  /api/notes/active/{userId}:
+    get:
+      summary: Obtener notas activas por usuario
+      tags:
+        - Notes
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de notas activas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+  /api/notes/archived/{userId}:
+    get:
+      summary: Obtener notas archivadas por usuario
+      tags:
+        - Notes
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de notas archivadas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+  /api/notes/{id}/category/{categoryId}:
+    post:
+      summary: Agregar una categoría a una nota
+      tags:
+        - Notes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Categoría añadida a la nota
+    delete:
+      summary: Eliminar una categoría de una nota
+      tags:
+        - Notes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Categoría eliminada de la nota
+
+  /api/categories:
+    get:
+      summary: Obtener todas las categorías
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Lista de categorías
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+    post:
+      summary: Crear una nueva categoría
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        201:
+          description: Categoría creada exitosamente
+  /api/categories/{id}:
+    get:
+      summary: Obtener una categoría por ID
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Categoría encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+    put:
+      summary: Actualizar una categoría por ID
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        200:
+          description: Categoría actualizada exitosamente
+    delete:
+      summary: Eliminar una categoría por ID
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Categoría eliminada exitosamente
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        id:
+          type: integer
+          description: ID único del usuario
+        username:
+          type: string
+          description: Nombre del usuario
+        password:
+          type: string
+          description: Contraseña del usuario
+      example:
+        id: 1
+        username: usuario123
+        password: contraseñaSegura
+
+    Note:
+      type: object
+      required:
+        - title
+        - content
+        - userId
+      properties:
+        id:
+          type: integer
+          description: ID único de la nota
+        title:
+          type: string
+          description: Título de la nota
+        content:
+          type: string
+          description: Contenido de la nota
+        archived:
+          type: boolean
+          description: Indica si la nota está archivada
+        userId:
+          type: integer
+          description: ID del usuario que creó la nota
+      example:
+        id: 1
+        title: Tarea pendiente
+        content: Recordar comprar leche
+        archived: false
+        userId: 1
+
+    Category:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          description: ID único de la categoría
+        name:
+          type: string
+          description: Nombre de la categoría
+      example:
+        id: 1
+        name: Trabajo

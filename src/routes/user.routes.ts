@@ -9,9 +9,9 @@ import {
 
 const router = Router();
 
-
 // Rutas para los usuarios
 router.post('/', createUser); // Crear usuario
+
 router.get('/', getUsers); // Obtener todos los usuarios
 router.get('/:id', getUserById); // Obtener un usuario por ID
 router.put('/:id', updateUser); // Actualizar un usuario por ID
