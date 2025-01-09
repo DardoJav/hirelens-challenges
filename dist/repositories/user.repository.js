@@ -22,7 +22,4 @@ export class UserRepository {
         await user.destroy();
         return true;
     }
-    async findByUsername(username) {
-        return await User.findOne({ where: { username } });
-    }
 }

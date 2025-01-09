@@ -7,18 +7,12 @@ import categoryRoutes from './routes/category.routes.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { setupAssociations } from './models/associations.js';
-import cors from 'cors';
 // Emula el comportamiento de __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 dotenv.config();
 const app = express();
 console.log('Ruta actual:', __dirname);
-app.use(cors({
-    origin: 'http://localhost:3000', // Reemplaza con la URL de tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
 app.use(express.json());
 app.use('/api/notes', noteRoutes);
 app.use('/api/users', userRoutes);

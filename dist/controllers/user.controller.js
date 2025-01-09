@@ -60,16 +60,3 @@ export const deleteUser = async (req, res) => {
         handleError(res, error, 'Error al eliminar el usuario', 500);
     }
 };
-export const login = async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const token = await userService.loginUser(username, password);
-        if (!token) {
-            return handleError(res, null, 'Credenciales incorrectas', 401);
-        }
-        handleSuccess(res, { token }, 'Inicio de sesión exitoso');
-    }
-    catch (error) {
-        handleError(res, error, 'Error al iniciar sesión', 500);
-    }
-};
